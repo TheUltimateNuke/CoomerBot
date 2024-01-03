@@ -2,7 +2,7 @@
   "name": "nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +12,8 @@
   "dependencies": {
     "@types/node": "^18.0.6",
     "discord.js": "^14.14.1",
-    "node-fetch": "^3.2.6"
+    "node-fetch": "^3.2.6",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "eslint": "^8.56.0"
