@@ -16,6 +16,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "eslint": "^8.56.0"
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10"
   }
 }
