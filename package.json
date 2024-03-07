@@ -13,9 +13,11 @@
     "@types/node": "^18.0.6",
     "discord.js": "^14.14.1",
     "node-fetch": "^3.2.6",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "wikijs": "^6.4.1"
   },
   "devDependencies": {
+    "dotenv": "^16.4.5",
     "eslint": "^8.56.0",
     "glob": "^10.3.10"
   }
