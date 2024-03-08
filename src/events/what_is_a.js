@@ -1,7 +1,7 @@
 const { Events } = require('discord.js');
 const wiki = require("wikijs").default;
 
-const regexMatch = /(what is an? |what'?s an? |what'?s |what is |what are )\S+/
+const regexMatch = /(what is an? |what'?s an? |what'?s |what is |what are |who is |who was |who are )\S+/
 
 module.exports = {
   name: Events.MessageCreate,
