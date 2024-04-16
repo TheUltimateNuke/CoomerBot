@@ -6,12 +6,6 @@ namespace CoomerBot;
 
 public class Program
 {
-    public enum SupportedEventType 
-    {
-        MESSAGE_RECEIVED = 0,
-        MESSAGE_UPDATED = 1
-    }
-
     public static DiscordSocketClient? Client {get; private set;}
 
     private static readonly DiscordSocketConfig config = new() 
