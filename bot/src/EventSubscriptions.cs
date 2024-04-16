@@ -60,7 +60,7 @@ public static partial class EventSubscriptions
             
             using HttpClient webClient = new();
             var apiResponse = await webClient.GetStringAsync($"https://en.wikipedia.org/w/api.php?action=query&exintro=&explaintext=&format=json&pageids={result.PageId}&prop=extracts&redirects=1");
-            var summary = JsonNode.Parse(apiResponse).AsObject()["query"]["pages"][result.PageId.ToString()]["extract"].AsValue().ToString();
+            var summary = JsonNode.Parse(apiResponse).AsObject()["query"]["pages"][result.PageId.ToString()]["extract"].AsValue().ToString() ?? throw new Exception($"summary of page {pageString} is null!");
             
             if (summary.Length > 2000) 
             {
