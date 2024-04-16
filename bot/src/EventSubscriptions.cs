@@ -49,8 +49,7 @@ public static partial class EventSubscriptions
 
             WikiSearchRequest req = new(pageString)
             {
-                Limit = 5,
-                WhatToSearch = Genbox.Wikipedia.Enums.WikiWhat.Text,
+                Limit = 1
             };
 
             WikiSearchResponse resp = await client.SearchAsync(req);
