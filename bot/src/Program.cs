@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
 
 namespace CoomerBot;
@@ -33,6 +32,12 @@ public class Program
         {
             Client.MessageReceived += EventSubscriptions.Chair;
             Client.MessageReceived += EventSubscriptions.Wikipedia;
+            return Task.CompletedTask;
+        };
+        Client.Disconnected += (Exception e) => 
+        {
+            Client.MessageReceived -= EventSubscriptions.Chair;
+            Client.MessageReceived -= EventSubscriptions.Wikipedia;
             return Task.CompletedTask;
         };
 
