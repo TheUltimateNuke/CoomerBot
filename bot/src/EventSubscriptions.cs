@@ -34,7 +34,7 @@ public static class EventSubscriptions
 
     public static async Task Wikipedia(IMessage message)
     {
-        var regexMatch = @"(what is an? |what'?s an? |what'?s |what is |what are |who is |who was |who are )";
+        var regexMatch = @"(what is an? |what'?s an? |what'?s |what is |what are |what was |who is |who was |who are )";
 
         if (!IsValidMessage(message)) return;
         if (!RegexMatch(regexMatch, message.Content.ToLower(), out var matchIndex)) return;
