@@ -6,7 +6,7 @@ using MessageExtensions = Discord.MessageExtensions;
 
 namespace CoomerBot;
 
-public static partial class EventSubscriptions 
+public static class EventSubscriptions 
 {
     private static bool RegexMatch(string regex, string toMatch, out string? matchIndex)
     {
@@ -34,7 +34,7 @@ public static partial class EventSubscriptions
 
     public static async Task Wikipedia(IMessage message)
     {
-        var regexMatch = @"(what is an? |what'?s an? |what'?s |what is |what are |who is |who was |who are )";
+        var regexMatch = @"(what is an? |what'?s an? |what'?s |what is |what are |what was |who is |who was |who are )";
 
         if (!IsValidMessage(message)) return;
         if (!RegexMatch(regexMatch, message.Content.ToLower(), out var matchIndex)) return;
@@ -61,7 +61,7 @@ public static partial class EventSubscriptions
             using HttpClient webClient = new();
             var apiResponse = await webClient.GetStringAsync($"https://en.wikipedia.org/w/api.php?action=query&exintro=&explaintext=&format=json&pageids={result.PageId}&prop=extracts&redirects=1");
             var summary = JsonNode.Parse(apiResponse).AsObject()["query"]["pages"][result.PageId.ToString()]["extract"].AsValue().ToString() ?? throw new Exception($"summary of page {pageString} is null!");
-            
+
             if (summary.Length > 2000) 
             {
                 for (int i = 0; i < summary.Length; i += 2000) 
