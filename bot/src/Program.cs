@@ -32,12 +32,14 @@ public class Program
         {
             Client.MessageReceived += EventSubscriptions.Chair;
             Client.MessageReceived += EventSubscriptions.Wikipedia;
+            Client.MessageReceived += EventSubscriptions.IThought;
             return Task.CompletedTask;
         };
         Client.Disconnected += (Exception e) => 
         {
             Client.MessageReceived -= EventSubscriptions.Chair;
             Client.MessageReceived -= EventSubscriptions.Wikipedia;
+            Client.MessageReceived -= EventSubscriptions.IThought;
             return Task.CompletedTask;
         };
 
