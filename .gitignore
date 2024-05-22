@@ -402,3 +402,4 @@ FodyWeavers.xsd
 .vscode/
 .github/
 .devcontainer/
+bot/run_on_gitpod.sh
