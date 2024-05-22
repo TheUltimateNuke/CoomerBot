@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using Discord;
@@ -5,6 +6,22 @@ using Genbox.Wikipedia;
 using MessageExtensions = Discord.MessageExtensions;
 
 namespace CoomerBot;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class EventSubAttribute : Attribute 
+{
+    public enum SupportedEventType 
+    {
+        MESSAGE_RECEIVED = 0
+    }
+
+    public SupportedEventType eventType;
+
+    public EventSubAttribute(SupportedEventType eventType)
+    {
+        this.eventType = eventType;
+    }
+}
 
 public static class EventSubscriptions 
 {
@@ -23,6 +40,7 @@ public static class EventSubscriptions
         return true;
     }
 
+    [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
     public static async Task Chair(IMessage message)
     {
         if (!IsValidMessage(message)) return;
@@ -32,6 +50,7 @@ public static class EventSubscriptions
         await MessageExtensions.ReplyAsync(castedUserMessage, "A chair is a piece of furniture with a raised surface used to sit on, commonly for use by one person. Chairs are most often supported by four legs and have a back; however, a chair can have three legs or could have a different shape. A chair without a back or arm rests is a stool, or when raised up, a bar stool. A chair with arms is an armchair and with folding action and reclining footrest, a recliner. A permanently fixed chair in a train or theater is a seat or, in an airplane, airline seat; when riding, it is a saddle and bicycle saddle, and for an automobile, a car seat or infant car seat. With wheels it is a wheelchair and when hung from above, a swing. A chair for more than one person is a couch, sofa, settee, or \"loveseat\"; or a bench. A separate footrest for a chair is known as an ottoman, hassock or pouffe.");
     }
 
+    [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
     public static async Task IThought(IMessage message)
     {
         if (!IsValidMessage(message)) return;
@@ -40,7 +59,8 @@ public static class EventSubscriptions
 
         await MessageExtensions.ReplyAsync(castedUserMessage, "You thought wrong, my good bitch!");
     }
-
+    
+    [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
     public static async Task Wikipedia(IMessage message)
     {
         var regexMatch = @"(what is an? |what'?s an? |what'?s |what is |what are |what was |who is |who was |who are )";
@@ -88,5 +108,17 @@ public static class EventSubscriptions
         {
             await MessageExtensions.ReplyAsync(castedUserMessage, $"There's nothing there.\n\n||This message is being displayed because an error occurred searching Wikipedia: {error}||");
         }
+    }
+
+    [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
+    public static async Task WifeCommand(IMessage message) 
+    {
+        var regexMatch = @"\b(wife)\b";
+
+        if (!IsValidMessage(message)) return;
+        if (!RegexMatch(regexMatch, message.Content.ToLower(), out var matchIndex)) return;
+        if (message is not IUserMessage castedUserMessage) return;
+
+        await MessageExtensions.ReplyAsync(castedUserMessage, "I had a wife, but they took her in the divorce!");
     }
 }
