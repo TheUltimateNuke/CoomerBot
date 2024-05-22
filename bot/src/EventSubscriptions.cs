@@ -121,4 +121,16 @@ public static class EventSubscriptions
 
         await MessageExtensions.ReplyAsync(castedUserMessage, "I had a wife, but they took her in the divorce!");
     }
+
+    [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
+    public static async Task Encyclopedia(IMessage message) 
+    {
+        var regexMatch = @"\b((w|W)ikipedia)\b";
+
+        if (!IsValidMessage(message)) return;
+        if (!RegexMatch(regexMatch, message.Content.ToLower(), out var matchIndex)) return;
+        if (message is not IUserMessage castedUserMessage) return;
+
+        await MessageExtensions.ReplyAsync(castedUserMessage, "The free online encyclopedia that anyone can edit!");
+    }
 }
