@@ -402,4 +402,7 @@ FodyWeavers.xsd
 .vscode/
 .github/
 .devcontainer/
+
+# Custom Gitpod scripts
 bot/run_on_gitpod.sh
+bot/gitpod_restore.sh
