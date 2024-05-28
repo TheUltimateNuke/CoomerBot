@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Discord;
+using Discord.Interactions;
 using Discord.WebSocket;
 
 namespace CoomerBot;
@@ -7,6 +8,7 @@ namespace CoomerBot;
 public class Program
 {
     public static DiscordSocketClient? Client {get; private set;}
+    public static InteractionService? Service {get; private set;}
 
     private static bool alreadySubscribed = false;
 
@@ -19,10 +21,12 @@ public class Program
     private static async Task Main()
     {
         Client = new(config);
+        Service = new(Client.Rest);
+        
         Client.Log += Log;
 
         var token = Environment.GetEnvironmentVariable("COOMERBOT_TOKEN");
-        if (token == null)
+        if (token is null)
         {
             Console.WriteLine("COOMERBOT_TOKEN is null! The program will not execute.");
             return;
@@ -33,7 +37,11 @@ public class Program
         
         Client.Ready += () => 
         {
+            if (alreadySubscribed) return Task.CompletedTask;
+
             SubscribeToEventsOnce();
+
+            alreadySubscribed = true;
             return Task.CompletedTask;
         };
 
@@ -43,7 +51,6 @@ public class Program
     private static Task SubscribeToEventsOnce() 
     {
         if (Client is null) return Task.CompletedTask;
-        if (alreadySubscribed) return Task.CompletedTask;
 
         var thisAssembly = Assembly.GetExecutingAssembly();
         foreach (Type assemblyType in thisAssembly.GetTypes()) 
@@ -68,7 +75,6 @@ public class Program
                 }
             }
         }
-        alreadySubscribed = true;
 
         return Task.CompletedTask;
     }
