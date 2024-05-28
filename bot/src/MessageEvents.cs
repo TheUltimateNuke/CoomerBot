@@ -23,7 +23,7 @@ public class EventSubAttribute : Attribute
     }
 }
 
-public static class EventSubscriptions 
+public static class MessageEvents 
 {
     private static bool RegexMatch(string regex, string toMatch, out string? matchIndex)
     {
