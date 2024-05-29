@@ -1,2 +1,9 @@
-cd /workspace/CoomerBot/bot
-docker run -it --rm -w /opt/app -v $PWD:/opt/app mcr.microsoft.com/dotnet/sdk:6.0 dotnet publish
+#!/usr/bin/env bash
+
+if [ -d /home/gitpod/dotnet/sdk/6.0.423 ] ; then 
+    cd /workspace/CoomerBot/bot || exit 0
+    dotnet publish --output ../out -c Release
+else
+    bash ./gitpod_setup.sh
+fi
+
