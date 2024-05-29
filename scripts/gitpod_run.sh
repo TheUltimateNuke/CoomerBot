@@ -1,4 +1,6 @@
-cd /workspace/CoomerBot/bot
+#!/usr/bin/env bash
+
+cd /workspace/CoomerBot/bot || exit 0
 
 # Requires provided .env file with token in it
-docker run --env-file ../.env -it --rm -w /opt/app -v $PWD:/opt/app mcr.microsoft.com/dotnet/sdk:6.0 dotnet run
+docker run --env-file ../.env -it --rm -w /opt/app -v "$PWD":/opt/app mcr.microsoft.com/dotnet/sdk:6.0 dotnet run
