@@ -403,7 +403,4 @@ FodyWeavers.xsd
 .github/
 .devcontainer/
 out/
-
-# Custom Gitpod scripts
-bot/run_on_gitpod.sh
-bot/gitpod_restore.sh
+.env

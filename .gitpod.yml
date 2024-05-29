@@ -1,1 +1,11 @@
 image: gitpod/workspace-dotnet
+
+tasks:
+  - name: Restore
+    init: bash scripts/gitpod_restore.sh
+  - name: Run
+    command: dotnet run
+
+vscode:
+  extensions:
+    - muhammad-sammy.csharp
