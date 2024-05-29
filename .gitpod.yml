@@ -2,7 +2,7 @@ image: gitpod/workspace-dotnet
 
 tasks:
   - name: Restore
-    init: bash scripts/gitpod_restore.sh
+    init: bash scripts/gitpod_setup.sh
   - name: Run
     command: dotnet run
 
