@@ -1,4 +1,3 @@
-using System.Diagnostics.Tracing;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using Discord;
@@ -63,7 +62,7 @@ public static class MessageEvents
     [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
     public static async Task Wikipedia(IMessage message)
     {
-        var regexMatch = @"(what is an? |what'?s an? |what'?s |what is |what are |what was |who is |who was |who are )";
+        var regexMatch = @"(what is an? |what'?s an? |what'?s |what is |what are |what was |who is |who was |who are |who'?s)";
 
         if (!IsValidMessage(message)) return;
         if (!RegexMatch(regexMatch, message.Content.ToLower(), out var matchIndex)) return;

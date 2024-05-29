@@ -7,9 +7,18 @@ namespace CoomerBot;
 
 public class Program
 {
-    public static DiscordSocketClient? Client {get; private set;}
-    public static InteractionService? Service {get; private set;}
+    public const string DOWNLOAD_LINK = "https://api.github.com/repos/TheUltimateNuke/CoomerBot/releases/latest";
+    public const string LOCAL_VERSION = "1.2.0";
 
+    private const float updateCheckMins = 1f;
+
+    public static DiscordSocketClient? DiscordClient {get; private set;}
+    public static InteractionService? Service {get; private set;}
+    
+    public static readonly HttpClient webClient = new();
+    public static readonly Version localVersion = new(LOCAL_VERSION);
+
+    private static readonly PeriodicTimer updateCheckTimer = new(TimeSpan.FromMinutes(updateCheckMins));
     private static bool alreadySubscribed = false;
 
     private static readonly DiscordSocketConfig config = new() 
@@ -20,10 +29,10 @@ public class Program
 
     private static async Task Main()
     {
-        Client = new(config);
-        Service = new(Client.Rest);
+        DiscordClient = new(config);
+        Service = new(DiscordClient.Rest);
         
-        Client.Log += Log;
+        DiscordClient.Log += Log;
 
         var token = Environment.GetEnvironmentVariable("COOMERBOT_TOKEN");
         if (token is null)
@@ -32,10 +41,10 @@ public class Program
             return;
         }
 
-        await Client.LoginAsync(TokenType.Bot, token);
-        await Client.StartAsync();
+        await DiscordClient.LoginAsync(TokenType.Bot, token);
+        await DiscordClient.StartAsync();
         
-        Client.Ready += () => 
+        DiscordClient.Ready += () => 
         {
             if (alreadySubscribed) return Task.CompletedTask;
 
@@ -45,12 +54,26 @@ public class Program
             return Task.CompletedTask;
         };
 
+        while (await updateCheckTimer.WaitForNextTickAsync())
+        {
+            Console.WriteLine("Checking for updates. . .");
+            
+            
+            
+            Environment.Exit(0);
+        }
+
         await Task.Delay(-1);
+    }
+
+    private static void UpdateSelf() 
+    {
+        
     }
 
     private static Task SubscribeToEventsOnce() 
     {
-        if (Client is null) return Task.CompletedTask;
+        if (DiscordClient is null) return Task.CompletedTask;
 
         var thisAssembly = Assembly.GetExecutingAssembly();
         foreach (Type assemblyType in thisAssembly.GetTypes()) 
@@ -65,7 +88,7 @@ public class Program
                     switch (castedAttr.eventType) 
                     {
                         case EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED:
-                            Client.MessageReceived += method.CreateDelegate<Func<IMessage, Task>>();
+                            DiscordClient.MessageReceived += method.CreateDelegate<Func<IMessage, Task>>();
                             break;
                     }
                 }
