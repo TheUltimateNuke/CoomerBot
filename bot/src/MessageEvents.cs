@@ -88,9 +88,9 @@ public static class MessageEvents
             
             using HttpClient webClient = new();
             var apiResponse = await webClient.GetStringAsync($"https://en.wikipedia.org/w/api.php?action=query&exintro=&explaintext=&format=json&pageids={result.PageId}&prop=extracts&redirects=1");
-            var summary = JsonNode.Parse(apiResponse).AsObject()["query"]["pages"][result.PageId.ToString()]["extract"].AsValue().ToString() ?? throw new Exception($"summary of page {pageString} is null!");
+            var summary = JsonNode.Parse(apiResponse)?.AsObject()["query"]?["pages"]?[result.PageId.ToString()]?["extract"]?.AsValue().ToString() ?? throw new Exception($"summary of page {pageString} is null!");
 
-            if (summary.Length > 2000) 
+            if (summary.Length > 2000)
             {
                 for (int i = 0; i < summary.Length; i += 2000) 
                 {
