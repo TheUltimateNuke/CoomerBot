@@ -1,6 +1,7 @@
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using Discord;
+using Discord.Interactions;
 using Genbox.Wikipedia;
 using MessageExtensions = Discord.MessageExtensions;
 
@@ -22,7 +23,7 @@ public class EventSubAttribute : Attribute
     }
 }
 
-public static class MessageEvents 
+public class MessageEvents : InteractionModuleBase
 {
     private static bool RegexMatch(string regex, string toMatch, out string? matchIndex)
     {
@@ -72,6 +73,7 @@ public static class MessageEvents
         {
             var split = message.Content.ToLower().Split(matchIndex);
             var pageString = split[1];
+            if (pageString == "chair") return;
 
             using WikipediaClient client = new();
 
