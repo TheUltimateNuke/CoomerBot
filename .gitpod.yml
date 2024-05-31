@@ -1,11 +1,9 @@
-image: gitpod/workspace-dotnet
+image: 
+  file: .gitpod.Dockerfile
 
 tasks:
   - name: Restore
-    command: bash scripts/gitpod_setup.sh
-  - name: Run
-    command: dotnet run
-
+    command: bash scripts/src/gitpod_setup.sh
 vscode:
   extensions:
     - muhammad-sammy.csharp
