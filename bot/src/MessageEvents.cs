@@ -146,4 +146,16 @@ public class MessageEvents : InteractionModuleBase
 
         await MessageExtensions.ReplyAsync(castedUserMessage, "Hello, Gordon!");
     }
+
+    [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
+    public static async Task Playcoins(IMessage message) 
+    {
+        var regexMatch = @"\b(c!playcoins)\b";
+
+        if (!IsValidMessage(message)) return;
+        if (!RegexMatch(regexMatch, message.Content.ToLower(), out _)) return;
+        if (message is not IUserMessage castedUserMessage) return;
+
+        await MessageExtensions.ReplyAsync(castedUserMessage, $"You have: **{new Random().Next(23)}** PlayCoins!");
+    }
 }
