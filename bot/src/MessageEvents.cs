@@ -158,16 +158,4 @@ public class MessageEvents : InteractionModuleBase
 
         await MessageExtensions.ReplyAsync(castedUserMessage, $"You have: **{new Random().Next(23)}** PlayCoins!");
     }
-
-    [EventSub(EventSubAttribute.SupportedEventType.MESSAGE_RECEIVED)]
-    public static async Task Mentioned(IMessage message) 
-    {
-        var regexMatch = @"coomer";
-
-        if (!IsValidMessage(message)) return;
-        if (message is not IUserMessage castedUserMessage) return;
-        if (!RegexMatch(regexMatch, message.Content.ToLower(), out _) || !castedUserMessage.MentionedUserIds.Any((id) => Program.DiscordClient?.CurrentUser.Id == id)) return;
-
-        await MessageExtensions.ReplyAsync(castedUserMessage, "Hello, Gordon!");
-    }
 }
