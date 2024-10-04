@@ -21,6 +21,7 @@ Eventually I am hoping to release my own trustworthy and secure version of the b
 | any variation of who/what/whos/whats (a/an) | Searches Wikipedia for an article matching what's after the command and sends the summary of the article if found, otherwise it sends **"There's nothing there."** along with an error code. |
 | wife | I had a wife, but they took her in the divorce! |
 | wikipedia | The free online encyclopedia that anyone can edit! |
+| c!playcoins | You have **(random number 0-23)** PlayCoins! |
 
 ## Footnotes & Credits
 
