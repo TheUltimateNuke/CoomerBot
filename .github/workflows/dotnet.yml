@@ -24,6 +24,14 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
+    - name: Publish
+      run: dotnet publish -c Release -o release
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: CoomerBot_nightly
+        path: /home/runner/work/
+      
 #    - name: Test
 #      run: dotnet test --no-build --verbosity normal
 # TODO: No tests to run (yet)
