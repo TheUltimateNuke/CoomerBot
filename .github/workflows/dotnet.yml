@@ -30,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: CoomerBot_nightly
-        path: /home/runner/work/CoomerBot/CoomerBot/bot/bin/Release/net6.0/linux-x64
+        path: /home/runner/work/CoomerBot/CoomerBot/bot/bin/Release/net6.0/linux-x64/CoomerBot
       
 #    - name: Test
 #      run: dotnet test --no-build --verbosity normal
