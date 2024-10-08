@@ -5,13 +5,12 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev", "workflow-test" ]
   pull_request:
-    branches: [ "main" ]    
+    branches: [ "main", "dev", "workflow-test" ]    
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -25,12 +24,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Publish
-      run: dotnet publish -c Release -o release
+      run: dotnet publish -c Release -o /release
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: CoomerBot_nightly
-        path: /home/runner/work/CoomerBot/CoomerBot/bot/bin/Release/net6.0/linux-x64/CoomerBot
+        path: /release
       
 #    - name: Test
 #      run: dotnet test --no-build --verbosity normal
