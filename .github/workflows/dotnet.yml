@@ -24,12 +24,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Publish
-      run: dotnet publish -c Release -o /release
+      run: dotnet publish -c Release -o /home/runner/release
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: CoomerBot_nightly
-        path: /release
+        path: /home/runner/release
       
 #    - name: Test
 #      run: dotnet test --no-build --verbosity normal
