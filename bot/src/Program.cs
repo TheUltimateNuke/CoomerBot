@@ -77,7 +77,7 @@ public class Program
                 continue;
             }
 
-            var isPrerelease =  releaseObj["prerelease"]?.AsValue().GetValue<bool>();
+            var isPrerelease = releaseObj["prerelease"]?.AsValue().GetValue<bool>();
             if (releaseVersion > localVersion && IsDevMode || isPrerelease is null || isPrerelease == false)
             {
                 Console.WriteLine("Release version > installed version, attempting to update. . .");
